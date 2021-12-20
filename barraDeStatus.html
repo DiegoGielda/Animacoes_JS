@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            Barra de Carregamento
+        </title>
+
+        <canvas width="600" height="400">
+        </canvas>
+
+        <script>
+            const lPagina = document.querySelector("canvas");
+            const lPincel = lPagina.getContext("2d");
+
+            lPincel.fillStyle = "black";
+            lPincel.fillRect(0, 0, 600, 400);
+
+            function criarCirculoTela(pValorX, pValorY, pRaio){
+                lPincel.fillStyle = "red";
+                lPincel.beginPath();
+                lPincel.arc(pValorX, pValorY, pRaio, 0, 2 * Math.PI);
+                lPincel.fill();
+            }
+            
+            let lValorX = 20;
+            let lSentidoCirculo = 1;
+            let lRaioCirculo = 10;
+            let lSentidoTamanho = 1;
+
+            function atualizaTela(){
+
+                lPincel.clearRect(0, 0, 600, 400);
+                if (lValorX > 580) {
+                    lSentidoCirculo = -1;
+                } else if (lValorX < 20) {
+                    lSentidoCirculo = 1;
+                }
+
+                if (lRaioCirculo > 20){
+                    lSentidoTamanho = -1;
+                } else if (lRaioCirculo < 10){
+                    lSentidoTamanho = 1;
+                }
+                criarCirculoTela(lValorX, 20, lRaioCirculo);
+                lValorX += lSentidoCirculo;
+                lRaioCirculo += lSentidoTamanho;
+
+            }
+
+            setInterval(atualizaTela, 20);
+
+        </script>
+
+
+    </head>
+    <body>
+    </body>
+</html>

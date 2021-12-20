@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            Movimentação de objeto
+        </title>
+
+        <canvas width="1000" height="600"></canvas>
+
+        <script>
+
+            // VALOR DAS TECLAS ( SETAS )
+            const lEsquerda = 37, lCima = 38, lDireita = 39, lBaixo = 40;
+
+            // COORDENADAS DO OBJETO.
+            let lValorX = 500, lValorY = 300;
+
+            const lPagina = document.querySelector("canvas");
+            const lPincel = lPagina.getContext("2d");
+            
+            function criarTela(){
+                lPincel.fillStyle = "green";
+                lPincel.fillRect(0, 0, 1000, 600);
+
+                lPincel.strokeStyle = 'black';
+                lPincel.lineWidth = 10;
+                lPincel.strokeRect(0, 0, 1000, 600);
+            }
+            
+            function limparTela(){
+                lPincel.clearRect(0, 0, 1000, 600);
+            }
+
+            function desenharObjetoCirculo(pValorX, pValorY){
+                lPincel.fillStyle = "red"; 
+                lPincel.beginPath();                
+                lPincel.arc(pValorX, pValorY, 15, 0, 2 * Math.PI);
+                lPincel.fill();     
+            }
+
+            function leDoTeclado(pCoordenadas){
+                limparTela();
+                criarTela();
+                
+
+                switch (pCoordenadas.keyCode){
+                    case lEsquerda :{
+                        lValorX -= (lValorX > 20) ? 10 : 0;
+                        break;
+                    }
+                    case lCima :{
+                        lValorY -= (lValorY > 20) ? 10 : 0;
+                        break;
+                    }
+                    case lDireita :{
+                        lValorX += (lValorX < 980) ? 10 : 0;
+                        break;
+                    }
+                    case lBaixo :{
+                        lValorY += (lValorY < 580) ? 10 : 0;
+                        break;
+                    }
+                }
+                desenharObjetoCirculo(lValorX, lValorY);
+            }
+            
+            criarTela();
+            desenharObjetoCirculo(lValorX, lValorY);
+            document.onkeydown = leDoTeclado;
+
+        </script>
+
+    </head>
+    <body>
+    </body>
+</html>

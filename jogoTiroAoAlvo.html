@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Acerte o alvo</title>
+
+        <canvas width="1000" height="600"></canvas>
+
+        <script>
+            const lObjetoCanvas = document.querySelector("canvas");
+            const lCanvasInterface = lObjetoCanvas.getContext("2d");
+            
+            function criarInterfaceCanvas(){
+                lCanvasInterface.fillStyle = "Silver";
+                lCanvasInterface.fillRect(0, 0, 1000, 600);
+            }
+
+            function criarObjetoCirculo(pPosicaoX, pPosicaoY, pRaio, pCor){
+                lCanvasInterface.beginPath();
+                lCanvasInterface.fillStyle = pCor;
+                lCanvasInterface.arc(pPosicaoX, pPosicaoY, pRaio, 0, 2 * Math.PI);
+                lCanvasInterface.fill();
+            }
+            /// INCLUINDO VALOR MIN E MAX
+            function gerarNumeroAleatorio(pMin, pMax) { 
+                pMin = Math.ceil(pMin);
+                pMax = Math.floor(pMax);
+                return Math.floor(Math.random() * (pMax - pMin + 1)) + pMin;
+            }
+
+            function criarAlvo(POSICAOX, POSICAOY){
+                criarObjetoCirculo(POSICAOX, POSICAOY, 30, "red");
+                criarObjetoCirculo(POSICAOX, POSICAOY, 20, "white");
+                criarObjetoCirculo(POSICAOX, POSICAOY, 10, "red");
+            }
+
+            function criarEstrutura(){
+                criarInterfaceCanvas();       
+                POSICAOX = gerarNumeroAleatorio(30, 970);
+                POSICAOY = gerarNumeroAleatorio(30, 570);
+                criarAlvo(POSICAOX, POSICAOY);
+            }
+            
+            function validarTiro(pCoordenada){
+
+                const lValorX = (pCoordenada.pageX - lObjetoCanvas.offsetLeft);
+                const lValorY = (pCoordenada.pageY - lObjetoCanvas.offsetTop);
+
+                if ((lValorX < (POSICAOX + 10) && lValorX > (POSICAOX - 10)) && (lValorY < (POSICAOY + 10) && lValorY > (POSICAOY - 10))) {
+                    alert('Acertou!');
+                }
+            }
+
+            var POSICAOX, POSICAOY;
+            setInterval(criarEstrutura, 1000);
+            document.onclick = validarTiro;
+            
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

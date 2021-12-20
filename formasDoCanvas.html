@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Segundo curso de lógica</title>
+
+        <canvas width="600" height="400" > 
+        </canvas>
+
+        <script>
+            
+            let lTela = document.querySelector("canvas");
+            let lPincel = lTela.getContext("2d");
+
+            lPincel.fillStyle = "lightgrey";
+            lPincel.fillRect(0, 0, 600, 400);
+            
+            lPincel.fillStyle = "green";
+            lPincel.fillRect(0, 0, 200, 400);
+            
+            lPincel.fillStyle = "red";
+            lPincel.fillRect(400, 0, 200, 400);
+            
+            lPincel.fillStyle = "yellow";
+            lPincel.beginPath();
+            lPincel.moveTo(300, 200);
+            lPincel.lineTo(200, 400);
+            lPincel.lineTo(400, 400);
+            lPincel.fill();
+
+            lPincel.fillStyle = "blue";
+            lPincel.beginPath();
+            lPincel.arc(300, 200, 50, 0, 2 * 3.14);
+            lPincel.fill();
+            
+        </script>
+
+    </head>
+    <body>
+    </body>
+</html>

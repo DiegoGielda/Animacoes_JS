@@ -1,0 +1,67 @@
+<!DOCTYPE htlm>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Escrita</title>
+
+        <canvas width="600" height="400"></canvas>
+        <br>
+        Escolha uma cor: <input type="color">
+
+        <script>
+            let lPagina = document.querySelector("canvas");
+            let lArma = lPagina.getContext("2d");
+            let lCor = document.querySelector("input");
+            
+            const lCoresTiro = ["blue", "red", "yellow"]
+            let lIndicacaoCor = 0;
+            let lTamanhoBala = 10;
+            let lDesenhar = false;
+
+            lArma.fillStyle = "grey";
+            lArma.fillRect(0, 0, 600, 400);
+
+            function tiro(pCordenada){
+                /// Coordenada do tiro
+                const lValorX = (pCordenada.pageX - lPagina.offsetLeft);
+                const lValorY = (pCordenada.pageY - lPagina.offsetTop);             
+                
+                if (pCordenada.shiftKey && pCordenada.altKey) {
+                    alert("Apenas uma tecla por vez");
+                }else if (pCordenada.shiftKey){
+                    lTamanhoBala += 20;
+                } else if (pCordenada.altKey && lTamanhoBala > 10){
+                    lTamanhoBala -= 5
+                }
+                if (lDesenhar) {
+                    lArma.fillStyle = lCor.value; //lCoresTiro[lIndicacaoCor];
+                    lArma.beginPath();
+                    lArma.arc(lValorX, lValorY, lTamanhoBala, 0, 2 * 3.14);
+                    lArma.fill();
+                }
+            }
+
+            function mudarCor(){
+                lIndicacaoCor++;
+                if (lIndicacaoCor >= lCoresTiro.length){
+                    lIndicacaoCor = 0;
+                }
+                return false;
+            }
+            lPagina.onmousemove = tiro;
+            lPagina.oncontextmenu = mudarCor; 
+
+            lPagina.onmousedown = function (){
+               lDesenhar = true; 
+            };
+            lPagina.onmouseup = function (){
+               lDesenhar = false; 
+            };
+            
+
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
